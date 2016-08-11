@@ -1,1 +1,9 @@
 c:\users\ysyrotenko\documents\visual studio 2015\Projects\Project34\Project34\bin\Debug\Project34.exe.config
+c:\users\ysyrotenko\documents\visual studio 2015\Projects\Project34\Project34\bin\Debug\Project34.exe
+c:\users\ysyrotenko\documents\visual studio 2015\Projects\Project34\Project34\bin\Debug\Project34.pdb
+c:\users\ysyrotenko\documents\visual studio 2015\Projects\Project34\Project34\obj\Debug\Project34.csprojResolveAssemblyReference.cache
+c:\users\ysyrotenko\documents\visual studio 2015\Projects\Project34\Project34\obj\Debug\Project34.exe
+c:\users\ysyrotenko\documents\visual studio 2015\Projects\Project34\Project34\obj\Debug\Project34.pdb
+D:\Program Files\Common Files\34Project\Project34\bin\Debug\Project34.exe.config
+D:\Program Files\Common Files\34Project\Project34\obj\Debug\Project34.exe
+D:\Program Files\Common Files\34Project\Project34\obj\Debug\Project34.pdb
