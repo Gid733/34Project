@@ -1,0 +1,8 @@
+C:\Users\Gid\Source\Repos\34Project\Booru34\bin\Debug\Booru34.exe.config
+C:\Users\Gid\Source\Repos\34Project\Booru34\bin\Debug\Booru34.exe
+C:\Users\Gid\Source\Repos\34Project\Booru34\bin\Debug\Booru34.pdb
+C:\Users\Gid\Source\Repos\34Project\Booru34\obj\Debug\Booru34.csprojResolveAssemblyReference.cache
+C:\Users\Gid\Source\Repos\34Project\Booru34\obj\Debug\Booru34.exe
+C:\Users\Gid\Source\Repos\34Project\Booru34\obj\Debug\Booru34.pdb
+C:\Users\Gid\Source\Repos\34Project\Booru34\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Gid\Source\Repos\34Project\Booru34\bin\Debug\Newtonsoft.Json.xml
