@@ -20,8 +20,16 @@ namespace Booru34
                 {
                     if (item.file_name != "")
                     {
-                        webClient.DownloadFile("http:" + item.representations.full, BuildPath(item.file_name, folderName));
-
+                        try
+                        {
+                            webClient.DownloadFile("https:" + item.representations.full,
+                                BuildPath(item.file_name, folderName));
+                        }
+                        catch (Exception)
+                        {
+                            
+                        }
+                        Thread.Sleep(1000);
                         Console.ForegroundColor = ConsoleColor.Green;
                         Console.WriteLine("Saved: " + item.file_name);                      
                     }                 
@@ -31,9 +39,16 @@ namespace Booru34
 
         private string BuildPath(string itemName, string folderName)
         {
-            string path = @"parserTest\" + @folderName + @"\";
+            string path = @"D:\parserTest\" + @folderName + @"\";
             DirectoryInfo di = Directory.CreateDirectory(path);
-            return path + itemName;
+            if (itemName.Length > 30)
+            {
+               itemName = itemName.Substring(0, 30);
+            }
+            string finalPath = path + itemName;
+            if (finalPath.Contains("file"))
+                finalPath = path + itemName + ".png";
+            return finalPath;
         }
     }
 }

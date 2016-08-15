@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -85,36 +86,47 @@ namespace Booru34
 
             while(pageNumber <= totalPages)
             {
-                WebRequest request = WebRequest.Create("https://derpibooru.org/search.json?q=" + tags + "&page=" + pageNumber + "&filter_id=123676");
-                WebResponse response = request.GetResponse();
+                WebRequest request =
+                        WebRequest.Create("https://derpibooru.org/search.json?q=" + tags + "&page=" + pageNumber +
+                                          "&filter_id=123676");
 
                 Console.WriteLine("Connecting...");
-                using (Stream stream = response.GetResponseStream())
+                
+                try
                 {
-                    using (StreamReader reader = new StreamReader(stream))
+                    using (Stream stream = request.GetResponse().GetResponseStream())
                     {
-                        string line = "";
-                        while ((line = reader.ReadLine()) != null)
+                        using (StreamReader reader = new StreamReader(stream))
                         {
-                            Console.WriteLine("Parsing items from the page...");
-                            var root = (RootObject)JObject.Parse(line).ToObject(typeof(RootObject));
+                            string line = "";
+                            while ((line = reader.ReadLine()) != null)
+                            {
+                                Console.WriteLine("Parsing items from the page...");
+                                var root = (RootObject)JObject.Parse(line).ToObject(typeof(RootObject));
 
-                            Console.ForegroundColor = ConsoleColor.Yellow;
-                            Console.WriteLine("Items parsed! Current page is: " + pageNumber);
+                                Console.ForegroundColor = ConsoleColor.Yellow;
+                                Console.WriteLine("Items parsed! Current page is: " + pageNumber);
 
-                            Console.ForegroundColor = ConsoleColor.DarkYellow;
-                            Console.WriteLine("Saving ponies...");
+                                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                                Console.WriteLine("Saving ponies...");
 
-                            pictureSaver.SaveToFolder(root.search, folderName, upvotes);
-                            response.Close();
-                            pageNumber++;
+                                pictureSaver.SaveToFolder(root.search, folderName, upvotes);
+                                pageNumber++;
+                            }
                         }
                     }
                 }
+                catch (Exception)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Error occuried while connecting to derpiboo.ru");
+                    Console.WriteLine("Try again later...");                    
+                }
+                Thread.Sleep(1000);
             }     
             Console.WriteLine("All pictures are saved");                  
             Console.Read();
-        }
+        }       
     }
 
 
