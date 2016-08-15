@@ -29,7 +29,12 @@ namespace Booru34
                         }
                         Thread.Sleep(1000);
                         Console.ForegroundColor = ConsoleColor.Green;
-                        Console.WriteLine("Saved: " + item.file_name);                                                  
+                        
+                        if(item.file_name != "")
+                            Console.WriteLine("Saved: " + item.file_name);
+                        else                       
+                            Console.WriteLine("Saved with sha512 name: " + item.sha512_hash.Substring(0, 10) + ".png");
+                                                                          
                 }              
             }                     
         }
@@ -43,9 +48,16 @@ namespace Booru34
             {
                 itemName = itemName.Substring(0, 20) + ".png";
             }
-
+            
             if (itemName.Equals(""))
                 itemName = sha512.Substring(0, 10) + ".png";
+
+            if (!itemName.EndsWith(".jpg") 
+                || !itemName.EndsWith(".png") 
+                || !itemName.EndsWith(".jpeg") 
+                || !itemName.EndsWith(".gif") 
+                || !itemName.EndsWith(".bmp"))
+                itemName = itemName + ".png";
             string finalPath = path + itemName;
             return finalPath;
         }
