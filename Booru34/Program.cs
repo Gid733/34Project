@@ -88,7 +88,7 @@ namespace Booru34
             {
                 WebRequest request =
                         WebRequest.Create("https://derpibooru.org/search.json?q=" + tags + "&page=" + pageNumber +
-                                          "&filter_id=123676");
+                                          "&filter_id=123676&key=whg6o6p9AdQDWRpA6zmd&perpage=50");
 
                 Console.WriteLine("Connecting...");
                 
@@ -122,7 +122,7 @@ namespace Booru34
                     Console.WriteLine("Error occuried while connecting to derpiboo.ru");
                     Console.WriteLine("Try again later...");                    
                 }
-                Thread.Sleep(1000);
+                Thread.Sleep(300);
             }     
             Console.WriteLine("All pictures are saved");                  
             Console.Read();

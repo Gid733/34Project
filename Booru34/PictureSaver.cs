@@ -17,37 +17,36 @@ namespace Booru34
             foreach (var item in searchItems)
             {
                 if (item.upvotes > upvotes)
-                {
-                    if (item.file_name != "")
-                    {
+                {                                   
                         try
                         {
                             webClient.DownloadFile("https:" + item.representations.full,
-                                BuildPath(item.file_name, folderName));
+                                BuildPath(item.file_name, folderName, item.sha512_hash));
                         }
                         catch (Exception)
                         {
-                            
+
                         }
                         Thread.Sleep(1000);
                         Console.ForegroundColor = ConsoleColor.Green;
-                        Console.WriteLine("Saved: " + item.file_name);                      
-                    }                 
+                        Console.WriteLine("Saved: " + item.file_name);                                                  
                 }              
             }                     
         }
 
-        private string BuildPath(string itemName, string folderName)
+        private string BuildPath(string itemName, string folderName, string sha512)
         {
             string path = @"D:\parserTest\" + @folderName + @"\";
             DirectoryInfo di = Directory.CreateDirectory(path);
-            if (itemName.Length > 30)
+
+            if (itemName.Length > 20)
             {
-               itemName = itemName.Substring(0, 30);
+                itemName = itemName.Substring(0, 20) + ".png";
             }
+
+            if (itemName.Equals(""))
+                itemName = sha512.Substring(0, 10) + ".png";
             string finalPath = path + itemName;
-            if (finalPath.Contains("file"))
-                finalPath = path + itemName + ".png";
             return finalPath;
         }
     }
