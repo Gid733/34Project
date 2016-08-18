@@ -12,53 +12,56 @@ namespace Booru34
     class PictureSaver
     {
         WebClient webClient = new WebClient();
-        public void SaveToFolder(List<Search> searchItems, string folderName, int upvotes)
+        public void SaveToFolder(List<Search> searchItems, string folderName)
         {                
             foreach (var item in searchItems)
-            {
-                if (item.upvotes > upvotes)
-                {                                   
+            {                                 
                         try
                         {
+                           
                             webClient.DownloadFile("https:" + item.representations.full,
-                                BuildPath(item.file_name, folderName, item.sha512_hash));
+                                BuildPath(item.file_name, folderName, item.sha512_hash, item.original_format));
                         }
                         catch (Exception)
                         {
 
                         }
-                        Thread.Sleep(1000);
                         Console.ForegroundColor = ConsoleColor.Green;
                         
                         if(item.file_name != "")
                             Console.WriteLine("Saved: " + item.file_name);
                         else                       
-                            Console.WriteLine("Saved with sha512 name: " + item.sha512_hash.Substring(0, 10) + ".png");
-                                                                          
-                }              
+                            Console.WriteLine("Saved with sha512 name: " + item.sha512_hash.Substring(0, 10) + "." + item.original_format);                             
             }                     
         }
 
-        private string BuildPath(string itemName, string folderName, string sha512)
+        private string BuildPath(string itemName, string folderName, string sha512, string originalFormat)
         {
             string path = @"D:\parserTest\" + @folderName + @"\";
             DirectoryInfo di = Directory.CreateDirectory(path);
 
             if (itemName.Length > 20)
             {
-                itemName = itemName.Substring(0, 20) + ".png";
+                itemName = itemName.Substring(0, 20) + "." + originalFormat;
             }
             
             if (itemName.Equals(""))
-                itemName = sha512.Substring(0, 10) + ".png";
+                itemName = sha512.Substring(0, 10) + "." + originalFormat;
 
-            if (!itemName.EndsWith(".jpg") 
-                || !itemName.EndsWith(".png") 
-                || !itemName.EndsWith(".jpeg") 
-                || !itemName.EndsWith(".gif") 
-                || !itemName.EndsWith(".bmp"))
-                itemName = itemName + ".png";
+            if (itemName.Contains(".png")
+                || itemName.EndsWith(".jpg")
+                || itemName.EndsWith(".jpeg")
+                || itemName.EndsWith(".gif")
+                || itemName.EndsWith(".bmp")
+                || itemName.EndsWith(".tiff"))
+                itemName = itemName; //fuck this
+            else
+            {
+                itemName = itemName + "." + originalFormat;
+            }
+          
             string finalPath = path + itemName;
+
             return finalPath;
         }
     }

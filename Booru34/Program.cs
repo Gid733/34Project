@@ -84,11 +84,20 @@ namespace Booru34
             Console.Write("Enter rating from (example 400): ");
             int upvotes = int.Parse(Console.ReadLine());
 
-            while(pageNumber <= totalPages)
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            Console.Write("Filter explicit images? (true/false): ");
+            bool explicitFilter = Boolean.Parse(Console.ReadLine());
+            string filter = "&filter_id=123676";
+            if (!explicitFilter)
+                filter = "";
+
+            //&key=whg6o6p9AdQDWRpA6zmd&perpage=50
+
+            while (pageNumber <= totalPages)
             {
                 WebRequest request =
-                        WebRequest.Create("https://derpibooru.org/search.json?q=" + tags + "&page=" + pageNumber +
-                                          "&filter_id=123676&key=whg6o6p9AdQDWRpA6zmd&perpage=50");
+                        WebRequest.Create("https://derpibooru.org/search.json?q=" + tags + "&page=" + pageNumber + 
+                        filter + "&min_score=" + upvotes);
 
                 Console.WriteLine("Connecting...");
                 
@@ -110,7 +119,7 @@ namespace Booru34
                                 Console.ForegroundColor = ConsoleColor.DarkYellow;
                                 Console.WriteLine("Saving ponies...");
 
-                                pictureSaver.SaveToFolder(root.search, folderName, upvotes);
+                                pictureSaver.SaveToFolder(root.search, folderName);
                                 pageNumber++;
                             }
                         }
