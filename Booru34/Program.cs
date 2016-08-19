@@ -88,16 +88,16 @@ namespace Booru34
             Console.Write("Filter explicit images? (true/false): ");
             bool explicitFilter = Boolean.Parse(Console.ReadLine());
             string filter = "&filter_id=123676";
-            if (!explicitFilter)
+            if (explicitFilter)
                 filter = "";
 
-            //&key=whg6o6p9AdQDWRpA6zmd&perpage=50
+            //
 
             while (pageNumber <= totalPages)
             {
                 WebRequest request =
                         WebRequest.Create("https://derpibooru.org/search.json?q=" + tags + "&page=" + pageNumber + 
-                        filter + "&min_score=" + upvotes);
+                        filter + "&min_score=" + upvotes + "&key=whg6o6p9AdQDWRpA6zmd&perpage=50");
 
                 Console.WriteLine("Connecting...");
                 
@@ -120,6 +120,7 @@ namespace Booru34
                                 Console.WriteLine("Saving ponies...");
 
                                 pictureSaver.SaveToFolder(root.search, folderName);
+                  
                                 pageNumber++;
                             }
                         }

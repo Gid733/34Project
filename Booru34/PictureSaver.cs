@@ -11,28 +11,62 @@ namespace Booru34
 {
     class PictureSaver
     {
-        WebClient webClient = new WebClient();
+        
         public void SaveToFolder(List<Search> searchItems, string folderName)
-        {                
+        {
+            //Parallel.ForEach(searchItems, new ParallelOptions { MaxDegreeOfParallelism = 2},(item) =>
+            //{
+
+            //});
+            //foreach (var item in searchItems)
+            //{
+            //    try
+            //    {
+            //        var tasks = searchItems.Select(s => Task.Factory.StartNew(() =>
+            //        {
+            //            using (WebClient webClient = new WebClient())
+            //            {
+            //                webClient.DownloadFile("https:" + item.representations.full,
+            //                    BuildPath(item.file_name, folderName, item.sha512_hash, item.original_format));
+            //            }
+            //        })).ToArray();
+            //        Task.WaitAll(tasks);
+            //    }
+            //    catch (Exception)
+            //    {
+
+            //    }
+            //    Console.ForegroundColor = ConsoleColor.Green;
+            //    if (item.file_name != "")
+            //        Console.WriteLine("Saved: " + item.file_name);
+            //    else
+            //        Console.WriteLine("Saved with sha512 name: " + item.sha512_hash.Substring(0, 10) + "." +
+            //                          item.original_format);
+            //}
+
             foreach (var item in searchItems)
-            {                                 
-                        try
+            {
+                try
+                {
+                    
+                        using (WebClient webClient = new WebClient())
                         {
-                           
                             webClient.DownloadFile("https:" + item.representations.full,
                                 BuildPath(item.file_name, folderName, item.sha512_hash, item.original_format));
                         }
-                        catch (Exception)
-                        {
+                   
+                }
+                catch (Exception)
+                {
 
-                        }
-                        Console.ForegroundColor = ConsoleColor.Green;
-                        
-                        if(item.file_name != "")
-                            Console.WriteLine("Saved: " + item.file_name);
-                        else                       
-                            Console.WriteLine("Saved with sha512 name: " + item.sha512_hash.Substring(0, 10) + "." + item.original_format);                             
-            }                     
+                }
+                Console.ForegroundColor = ConsoleColor.Green;
+                if (item.file_name != "")
+                    Console.WriteLine("Saved: " + item.file_name);
+                else
+                    Console.WriteLine("Saved with sha512 name: " + item.sha512_hash.Substring(0, 10) + "." +
+                                      item.original_format);
+            }
         }
 
         private string BuildPath(string itemName, string folderName, string sha512, string originalFormat)
