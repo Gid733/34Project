@@ -97,7 +97,7 @@ namespace Booru34
             {
                 WebRequest request =
                         WebRequest.Create("https://derpibooru.org/search.json?q=" + tags + "&page=" + pageNumber + 
-                        filter + "&min_score=" + upvotes + "&key=whg6o6p9AdQDWRpA6zmd&perpage=50");
+                        filter + "&min_score=" + upvotes + "&key=&perpage=50");
 
                 Console.WriteLine("Connecting...");
                 
